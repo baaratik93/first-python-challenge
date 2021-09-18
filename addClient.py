@@ -1,8 +1,14 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import requests, json
+from listClient import Ui_form_listClient
 
 
 class Ui_Formulaire_Client(object):
+    def allClients(self):
+        self.window = QtWidgets.QWidget()
+        self.ui = Ui_form_listClient()
+        self.ui.setupUi(self.window)
+        self.window.show()
     def fnAddClient(self):
         client = {
             "nom": self.nom.toPlainText(),
@@ -15,7 +21,7 @@ class Ui_Formulaire_Client(object):
         self.adresse.setText("")
         self.telephone.setText("")
         print(json.loads(data.text))
-        print(self.__doc__)
+        self.allClients()
     def setupUi(self, Formulaire_Client):
         Formulaire_Client.setObjectName("Formulaire_Client")
         Formulaire_Client.setWindowModality(QtCore.Qt.ApplicationModal)
