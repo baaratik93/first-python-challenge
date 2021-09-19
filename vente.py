@@ -18,7 +18,7 @@ class Vente(QWidget):
         self.ch4 = QRadioButton("Terminale")
         
 
-        hbox.addWidget(self.ch1)
+        hbox.addWidget(self.ch1) #
         hbox.addWidget(self.ch2)
         hbox.addWidget(self.ch3)
         hbox.addWidget(self.ch4)

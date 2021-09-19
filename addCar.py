@@ -1,0 +1,252 @@
+from PyQt5 import QtCore, QtGui, QtWidgets
+import requests, json
+
+class Ui_addCar(object):
+    def __init__(self):
+            self.client = ""
+            self.typed = ""
+    def SaveCar(self):
+        car = {
+          "marque": self.marque.toPlainText(),
+          "model": self.model.toPlainText(),
+          "type": self.typed,
+          "matricule": self.matricule.toPlainText(),
+          "puissance": int(self.puissance.toPlainText()),
+          "proprietaire": self.client
+
+        }
+        data = requests.post('http://localhost:4000/cars/new', data=car)
+        self.marque.setText("")
+        self.model.setText("")
+        self.matricule.setText("")
+        self.puissance.setText("")
+        print(json.loads(data.text))
+    def setType(self):
+        self.typed = self.type.currentText()
+    def setClient(self):
+        self.client = self.proprietaire.currentData()
+
+    def chargerClient(self):
+        data = requests.get('http://localhost:4000/clients')
+        clients = json.loads(data.text)
+        for client in clients:
+                self.proprietaire.addItem(client["nom"], client["_id"])
+    def setupUi(self, addCar):
+        addCar.setObjectName("addCar")
+        addCar.setWindowModality(QtCore.Qt.ApplicationModal)
+        addCar.resize(572, 517)
+        addCar.setLayoutDirection(QtCore.Qt.LeftToRight)
+        addCar.setStyleSheet("background-color:rgb(82, 128, 255)")
+        self.frame = QtWidgets.QFrame(addCar)
+        self.frame.setGeometry(QtCore.QRect(-10, 0, 221, 161))
+        self.frame.setStyleSheet("background:rgb(99, 120, 255)")
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.label = QtWidgets.QLabel(self.frame)
+        self.label.setGeometry(QtCore.QRect(0, 0, 211, 161))
+        font = QtGui.QFont()
+        font.setPointSize(28)
+        font.setBold(True)
+        self.label.setFont(font)
+        self.label.setAcceptDrops(True)
+        self.label.setStyleSheet("color: rgb(0, 170, 255);")
+        self.label.setText("")
+        self.label.setPixmap(QtGui.QPixmap("../../index-removebg-preview.png"))
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(self.frame)
+        self.label_2.setGeometry(QtCore.QRect(20, 100, 201, 41))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        font.setBold(True)
+        self.label_2.setFont(font)
+        self.label_2.setStyleSheet("color:white")
+        self.label_2.setObjectName("label_2")
+        self.frame_2 = QtWidgets.QFrame(addCar)
+        self.frame_2.setGeometry(QtCore.QRect(60, 190, 461, 281))
+        font = QtGui.QFont()
+        font.setBold(False)
+        self.frame_2.setFont(font)
+        self.frame_2.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.frame_2.setAutoFillBackground(False)
+        self.frame_2.setStyleSheet("background:rgb(99, 120, 255)")
+        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.formLayout = QtWidgets.QFormLayout(self.frame_2)
+        self.formLayout.setObjectName("formLayout")
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.label_3 = QtWidgets.QLabel(self.frame_2)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        font.setBold(True)
+        self.label_3.setFont(font)
+        self.label_3.setObjectName("label_3")
+        self.verticalLayout.addWidget(self.label_3)
+        self.label_4 = QtWidgets.QLabel(self.frame_2)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        font.setBold(True)
+        self.label_4.setFont(font)
+        self.label_4.setObjectName("label_4")
+        self.verticalLayout.addWidget(self.label_4)
+        self.label_5 = QtWidgets.QLabel(self.frame_2)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        font.setBold(True)
+        self.label_5.setFont(font)
+        self.label_5.setObjectName("label_5")
+        self.verticalLayout.addWidget(self.label_5)
+        self.label_6 = QtWidgets.QLabel(self.frame_2)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        font.setBold(True)
+        self.label_6.setFont(font)
+        self.label_6.setObjectName("label_6")
+        self.verticalLayout.addWidget(self.label_6)
+        self.label_7 = QtWidgets.QLabel(self.frame_2)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        font.setBold(True)
+        self.label_7.setFont(font)
+        self.label_7.setObjectName("label_7")
+        self.verticalLayout.addWidget(self.label_7)
+        self.label_8 = QtWidgets.QLabel(self.frame_2)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        font.setBold(True)
+        self.label_8.setFont(font)
+        self.label_8.setObjectName("label_8")
+        self.verticalLayout.addWidget(self.label_8)
+        self.horizontalLayout.addLayout(self.verticalLayout)
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.marque = QtWidgets.QTextEdit(self.frame_2)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.marque.setFont(font)
+        self.marque.setStyleSheet("background-color:white")
+        self.marque.setTabChangesFocus(True)
+        self.marque.setObjectName("marque")
+        self.verticalLayout_2.addWidget(self.marque)
+        self.model = QtWidgets.QTextEdit(self.frame_2)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.model.setFont(font)
+        self.model.setStyleSheet("background-color:white")
+        self.model.setTabChangesFocus(True)
+        self.model.setObjectName("model")
+        self.verticalLayout_2.addWidget(self.model)
+        self.type = QtWidgets.QComboBox(self.frame_2, activated = lambda: self.setType())
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        self.type.setFont(font)
+        self.type.setFocusPolicy(QtCore.Qt.TabFocus)
+        self.type.setAutoFillBackground(False)
+        self.type.setStyleSheet("background-color:white")
+        self.type.setObjectName("type")
+        self.type.addItem("")
+        self.type.addItem("")
+        self.type.addItem("")
+        self.type.addItem("")
+        self.type.addItem("")
+        self.verticalLayout_2.addWidget(self.type)
+        self.matricule = QtWidgets.QTextEdit(self.frame_2)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.matricule.setFont(font)
+        self.matricule.setStyleSheet("background-color:white")
+        self.matricule.setTabChangesFocus(True)
+        self.matricule.setObjectName("matricule")
+        self.verticalLayout_2.addWidget(self.matricule)
+        self.puissance = QtWidgets.QTextEdit(self.frame_2)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.puissance.setFont(font)
+        self.puissance.setStyleSheet("background-color:white")
+        self.puissance.setTabChangesFocus(True)
+        self.puissance.setObjectName("puissance")
+        self.verticalLayout_2.addWidget(self.puissance)
+        self.proprietaire = QtWidgets.QComboBox(self.frame_2, activated = lambda: self.setClient())
+        print(self.client)
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        self.proprietaire.setFont(font)
+        self.proprietaire.setStyleSheet("background-color:white")
+        self.proprietaire.setObjectName("proprietaire")
+        self.chargerClient()
+        self.verticalLayout_2.addWidget(self.proprietaire)
+        self.horizontalLayout.addLayout(self.verticalLayout_2)
+        self.formLayout.setLayout(0, QtWidgets.QFormLayout.SpanningRole, self.horizontalLayout)
+        self.ajouter = QtWidgets.QPushButton(self.frame_2, clicked=lambda: self.SaveCar())
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.ajouter.setFont(font)
+        self.ajouter.setStyleSheet("color:white;\n"
+"background:rgb(41, 21, 255)\n"
+"")
+        self.ajouter.setObjectName("ajouter")
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.SpanningRole, self.ajouter)
+        self.actioncar = QtWidgets.QAction(addCar)
+        self.actioncar.setCheckable(True)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("../../../index-removebg-preview.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actioncar.setIcon(icon)
+        self.actioncar.setObjectName("actioncar")
+
+        self.retranslateUi(addCar)
+        QtCore.QMetaObject.connectSlotsByName(addCar)
+
+    def retranslateUi(self, addCar):
+        _translate = QtCore.QCoreApplication.translate
+        addCar.setWindowTitle(_translate("addCar", "Formulaire véhicule -Fouta ASSURANCE"))
+        self.label_2.setText(_translate("addCar", "Ajouter un véhicule"))
+        self.label_3.setText(_translate("addCar", "Marque:"))
+        self.label_4.setText(_translate("addCar", "Modèle:"))
+        self.label_5.setText(_translate("addCar", "Type:"))
+        self.label_6.setText(_translate("addCar", "Matricule:"))
+        self.label_7.setText(_translate("addCar", "Puissance:"))
+        self.label_8.setText(_translate("addCar", "Propriétaire:"))
+        self.marque.setHtml(_translate("addCar", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Segoe UI\'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;\"><br /></p></body></html>"))
+        self.model.setHtml(_translate("addCar", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Segoe UI\'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;\"><br /></p></body></html>"))
+        self.type.setToolTip(_translate("addCar", "<html><head/><body><p align=\"center\"><br/></p></body></html>"))
+        self.type.setWhatsThis(_translate("addCar", "<html><head/><body><p align=\"center\"><br/></p></body></html>"))
+        self.type.setItemText(0, _translate("addCar", "Particulier (VP/CI)"))
+        self.type.setItemText(1, _translate("addCar", "Transport en commun (TPC)"))
+        self.type.setItemText(2, _translate("addCar", "Moto (2 ROUES)"))
+        self.type.setItemText(3, _translate("addCar", "Transport (TPV)"))
+        self.type.setItemText(4, _translate("addCar", "8 Roues / 6 Roues (TPC)"))
+        self.matricule.setHtml(_translate("addCar", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Segoe UI\'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;\"><br /></p></body></html>"))
+        self.puissance.setHtml(_translate("addCar", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Segoe UI\'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;\"><br /></p></body></html>"))
+        self.proprietaire.setWhatsThis(_translate("addCar", "<html><head/><body><p align=\"center\"><br/></p></body></html>"))
+        self.ajouter.setText(_translate("addCar", "Ajouter"))
+        self.actioncar.setText(_translate("addCar", "car"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    addCar = QtWidgets.QWidget()
+    ui = Ui_addCar()
+    ui.setupUi(addCar)
+    addCar.show()
+    sys.exit(app.exec_())
